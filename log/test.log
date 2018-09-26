@@ -1,0 +1,202 @@
+  [1m[35m (150.5ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (96.0ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT pg_try_advisory_lock(7386966148549735440)[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateHeros (20180104040228)
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (76.9ms)[0m  [1m[35mCREATE TABLE "heros" ("id" bigserial primary key, "name" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20180104040228"]]
+  [1m[35m (17.1ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateCustomers (20180203054441)
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (98.1ms)[0m  [1m[35mCREATE TABLE "customers" ("id" bigserial primary key, "name" character varying, "phone" integer, "email" character varying, "status" boolean, "branch_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20180203054441"]]
+  [1m[35m (12.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateAccounts (20180203060218)
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (82.1ms)[0m  [1m[35mCREATE TABLE "accounts" ("id" bigserial primary key, "customer_id" integer, "opened_date" date, "balance" decimal DEFAULT 0.0, "meta_name" character varying, "status" boolean, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20180203060218"]]
+  [1m[35m (12.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateBranches (20180203060343)
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (89.4ms)[0m  [1m[35mCREATE TABLE "branches" ("id" bigserial primary key, "name" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20180203060343"]]
+  [1m[35m (5.8ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateAccountTransactions (20180203060422)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (74.6ms)[0m  [1m[35mCREATE TABLE "account_transactions" ("id" bigserial primary key, "account_id" integer, "from_id" integer, "to_id" integer, "description" text, "amount" decimal DEFAULT 0.0, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20180203060422"]]
+  [1m[35m (19.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "test"], ["created_at", "2018-03-13 04:34:36.794861"], ["updated_at", "2018-03-13 04:34:36.794861"]]
+  [1m[35m (8.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(7386966148549735440)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started POST "/api/v1/branches/create" for 127.0.0.1 at 2018-03-13 11:45:02 +0530
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "branches" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "koramangala"], ["created_at", "2018-03-13 06:15:03.208786"], ["updated_at", "2018-03-13 06:15:03.208786"]]
+  [1m[35m (20.0ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/branches/create" for 127.0.0.1 at 2018-03-13 11:45:51 +0530
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "branches" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "koramangala"], ["created_at", "2018-03-13 06:15:51.229529"], ["updated_at", "2018-03-13 06:15:51.229529"]]
+  [1m[35m (22.2ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/branches/create" for 127.0.0.1 at 2018-03-13 11:46:06 +0530
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "branches" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "koramangala"], ["created_at", "2018-03-13 06:16:06.592509"], ["updated_at", "2018-03-13 06:16:06.592509"]]
+  [1m[35m (18.2ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/branches/create" for 127.0.0.1 at 2018-03-13 11:46:52 +0530
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "branches" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "koramangala"], ["created_at", "2018-03-13 06:16:52.599791"], ["updated_at", "2018-03-13 06:16:52.599791"]]
+  [1m[35m (20.6ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/branches/create" for 127.0.0.1 at 2018-03-13 11:47:13 +0530
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "branches" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "koramangala"], ["created_at", "2018-03-13 06:17:13.144664"], ["updated_at", "2018-03-13 06:17:13.144664"]]
+  [1m[35m (129.5ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/branches/create" for 127.0.0.1 at 2018-03-13 11:47:53 +0530
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "branches" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "koramangala"], ["created_at", "2018-03-13 06:17:53.444312"], ["updated_at", "2018-03-13 06:17:53.444312"]]
+  [1m[35m (456.1ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/branches/create" for 127.0.0.1 at 2018-03-13 11:48:24 +0530
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "branches" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "koramangala"], ["created_at", "2018-03-13 06:18:24.907495"], ["updated_at", "2018-03-13 06:18:24.907495"]]
+  [1m[35m (40.7ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/branches/create" for 127.0.0.1 at 2018-03-13 11:48:32 +0530
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "branches" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "koramangala"], ["created_at", "2018-03-13 06:18:32.331141"], ["updated_at", "2018-03-13 06:18:32.331141"]]
+  [1m[35m (9.4ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/branches/create" for 127.0.0.1 at 2018-03-13 11:53:56 +0530
+  [1m[35m (1.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "branches" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "koramangala"], ["created_at", "2018-03-13 06:23:56.887251"], ["updated_at", "2018-03-13 06:23:56.887251"]]
+  [1m[35m (28.0ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/branches/create" for 127.0.0.1 at 2018-03-13 11:54:17 +0530
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "branches" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "koramangala"], ["created_at", "2018-03-13 06:24:17.926891"], ["updated_at", "2018-03-13 06:24:17.926891"]]
+  [1m[35m (24.5ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/branches/create" for 127.0.0.1 at 2018-03-13 11:56:42 +0530
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "branches" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "koramangala"], ["created_at", "2018-03-13 06:26:42.921728"], ["updated_at", "2018-03-13 06:26:42.921728"]]
+  [1m[35m (27.3ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/branches/create" for 127.0.0.1 at 2018-03-13 11:57:05 +0530
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "branches" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "koramangala"], ["created_at", "2018-03-13 06:27:05.373337"], ["updated_at", "2018-03-13 06:27:05.373337"]]
+  [1m[35m (26.4ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/branches/create" for 127.0.0.1 at 2018-03-13 11:57:13 +0530
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "branches" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "koramangala"], ["created_at", "2018-03-13 06:27:13.055623"], ["updated_at", "2018-03-13 06:27:13.055623"]]
+  [1m[35m (19.9ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/branches/create" for 127.0.0.1 at 2018-03-13 11:57:23 +0530
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "branches" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "koramangala"], ["created_at", "2018-03-13 06:27:23.675186"], ["updated_at", "2018-03-13 06:27:23.675186"]]
+  [1m[35m (14.2ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/branches/create" for 127.0.0.1 at 2018-03-13 11:58:48 +0530
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "branches" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "koramangala"], ["created_at", "2018-03-13 06:28:48.047457"], ["updated_at", "2018-03-13 06:28:48.047457"]]
+  [1m[35m (61.4ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/branches/create" for 127.0.0.1 at 2018-03-13 11:58:57 +0530
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.1ms)[0m  [1m[32mINSERT INTO "branches" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "koramangala"], ["created_at", "2018-03-13 06:28:57.244141"], ["updated_at", "2018-03-13 06:28:57.244141"]]
+  [1m[35m (21.1ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/branches/create" for 127.0.0.1 at 2018-03-13 11:59:02 +0530
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "branches" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "koramangala"], ["created_at", "2018-03-13 06:29:02.719094"], ["updated_at", "2018-03-13 06:29:02.719094"]]
+  [1m[35m (14.6ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/branches/create" for 127.0.0.1 at 2018-03-13 11:59:50 +0530
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "branches" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "koramangala"], ["created_at", "2018-03-13 06:29:50.572136"], ["updated_at", "2018-03-13 06:29:50.572136"]]
+  [1m[35m (29.2ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/branches/create" for 127.0.0.1 at 2018-03-13 12:00:12 +0530
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "branches" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "koramangala"], ["created_at", "2018-03-13 06:30:12.945091"], ["updated_at", "2018-03-13 06:30:12.945091"]]
+  [1m[35m (57.9ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/branches/create" for 127.0.0.1 at 2018-03-13 12:00:37 +0530
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "branches" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "koramangala"], ["created_at", "2018-03-13 06:30:37.445453"], ["updated_at", "2018-03-13 06:30:37.445453"]]
+  [1m[35m (48.2ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/branches/create" for 127.0.0.1 at 2018-03-13 12:01:24 +0530
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "branches" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "koramangala"], ["created_at", "2018-03-13 06:31:24.335650"], ["updated_at", "2018-03-13 06:31:24.335650"]]
+  [1m[35m (24.9ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/branches/create" for 127.0.0.1 at 2018-03-13 12:01:49 +0530
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "branches" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "koramangala"], ["created_at", "2018-03-13 06:31:49.723248"], ["updated_at", "2018-03-13 06:31:49.723248"]]
+  [1m[35m (27.4ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/branches/create" for 127.0.0.1 at 2018-03-13 12:03:42 +0530
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "branches" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "koramangala"], ["created_at", "2018-03-13 06:33:42.004799"], ["updated_at", "2018-03-13 06:33:42.004799"]]
+  [1m[35m (19.8ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/branches/create" for 127.0.0.1 at 2018-03-13 12:03:49 +0530
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "branches" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "koramangala"], ["created_at", "2018-03-13 06:33:49.489193"], ["updated_at", "2018-03-13 06:33:49.489193"]]
+  [1m[35m (35.6ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/branches/create" for 127.0.0.1 at 2018-03-13 12:03:55 +0530
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "branches" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "koramangala"], ["created_at", "2018-03-13 06:33:55.486594"], ["updated_at", "2018-03-13 06:33:55.486594"]]
+  [1m[35m (23.2ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/branches/create" for 127.0.0.1 at 2018-03-13 12:04:20 +0530
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "branches" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "koramangala"], ["created_at", "2018-03-13 06:34:20.474831"], ["updated_at", "2018-03-13 06:34:20.474831"]]
+  [1m[35m (183.9ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/branches/create" for 127.0.0.1 at 2018-03-13 12:04:29 +0530
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "branches" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "koramangala"], ["created_at", "2018-03-13 06:34:29.069612"], ["updated_at", "2018-03-13 06:34:29.069612"]]
+  [1m[35m (21.7ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/branches/create" for 127.0.0.1 at 2018-03-13 12:04:38 +0530
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "branches" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "koramangala"], ["created_at", "2018-03-13 06:34:38.933728"], ["updated_at", "2018-03-13 06:34:38.933728"]]
+  [1m[35m (22.6ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/branches/create" for 127.0.0.1 at 2018-03-13 12:05:39 +0530
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "branches" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "koramangala"], ["created_at", "2018-03-13 06:35:39.556331"], ["updated_at", "2018-03-13 06:35:39.556331"]]
+  [1m[35m (18.8ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/branches/create" for 127.0.0.1 at 2018-03-13 12:06:27 +0530
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "branches" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "koramangala"], ["created_at", "2018-03-13 06:36:27.150372"], ["updated_at", "2018-03-13 06:36:27.150372"]]
+  [1m[35m (24.9ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/branches/create" for 127.0.0.1 at 2018-03-13 12:06:34 +0530
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "branches" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "koramangala"], ["created_at", "2018-03-13 06:36:34.749617"], ["updated_at", "2018-03-13 06:36:34.749617"]]
+  [1m[35m (17.7ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/branches/create" for 127.0.0.1 at 2018-03-13 12:06:41 +0530
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "branches" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "koramangala"], ["created_at", "2018-03-13 06:36:41.266222"], ["updated_at", "2018-03-13 06:36:41.266222"]]
+  [1m[35m (27.5ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/branches/create" for 127.0.0.1 at 2018-03-13 12:06:52 +0530
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "branches" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "koramangala"], ["created_at", "2018-03-13 06:36:52.474905"], ["updated_at", "2018-03-13 06:36:52.474905"]]
+  [1m[35m (64.8ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/branches/create" for 127.0.0.1 at 2018-03-13 12:07:01 +0530
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (2.2ms)[0m  [1m[32mINSERT INTO "branches" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "koramangala"], ["created_at", "2018-03-13 06:37:01.134107"], ["updated_at", "2018-03-13 06:37:01.134107"]]
+  [1m[35m (19.6ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/branches/create" for 127.0.0.1 at 2018-03-13 12:07:07 +0530
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "branches" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "koramangala"], ["created_at", "2018-03-13 06:37:07.423790"], ["updated_at", "2018-03-13 06:37:07.423790"]]
+  [1m[35m (17.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mBranch Load (0.7ms)[0m  [1m[34mSELECT  "branches".* FROM "branches" LIMIT $1[0m  [["LIMIT", 11]]
+  [1m[35mSQL (20.0ms)[0m  [1m[31mDELETE FROM "branches"[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[31mDELETE FROM "branches"[0m
+  [1m[36mBranch Load (0.5ms)[0m  [1m[34mSELECT  "branches".* FROM "branches" LIMIT $1[0m  [["LIMIT", 11]]
+Started POST "/api/v1/branches/create" for 127.0.0.1 at 2018-03-13 12:08:18 +0530
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "branches" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "koramangala"], ["created_at", "2018-03-13 06:38:18.854821"], ["updated_at", "2018-03-13 06:38:18.854821"]]
+  [1m[35m (19.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mBranch Load (0.5ms)[0m  [1m[34mSELECT  "branches".* FROM "branches" LIMIT $1[0m  [["LIMIT", 11]]
+Started POST "/api/v1/branches/create" for 127.0.0.1 at 2018-03-13 12:08:43 +0530
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "branches" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "koramangala"], ["created_at", "2018-03-13 06:38:43.829855"], ["updated_at", "2018-03-13 06:38:43.829855"]]
+  [1m[35m (26.5ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/branches/create" for 127.0.0.1 at 2018-03-13 12:09:25 +0530
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "branches" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "koramangala"], ["created_at", "2018-03-13 06:39:25.042711"], ["updated_at", "2018-03-13 06:39:25.042711"]]
+  [1m[35m (20.2ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/branches/create" for 127.0.0.1 at 2018-03-13 12:09:36 +0530
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "branches" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "koramangala"], ["created_at", "2018-03-13 06:39:36.981506"], ["updated_at", "2018-03-13 06:39:36.981506"]]
+  [1m[35m (18.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mBranch Load (0.8ms)[0m  [1m[34mSELECT  "branches".* FROM "branches" LIMIT $1[0m  [["LIMIT", 11]]
+  [1m[35mSQL (19.1ms)[0m  [1m[31mDELETE FROM "branches"[0m
+Started POST "/api/v1/branches/create" for 127.0.0.1 at 2018-03-13 12:17:11 +0530
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "branches" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "koramangala"], ["created_at", "2018-03-13 06:47:11.647433"], ["updated_at", "2018-03-13 06:47:11.647433"]]
+  [1m[35m (24.6ms)[0m  [1m[35mCOMMIT[0m

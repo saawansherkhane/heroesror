@@ -1,0 +1,26 @@
+development:
+  adapter: postgresql
+  encoding: utf-8
+  database: heroes #lbr_jsonb_local3 #nine_dot_nine_sep19
+  host: localhost
+  username: saawan
+  password: saawan123
+  port: 5432
+
+production:
+  adapter: postgresql
+  encoding: utf-8
+  database: heroes #lbr_jsonb_local3 #nine_dot_nine_sep19
+  host: localhost
+  username: saawan
+  password: saawan123
+  port: 5432
+
+test:
+  adapter: postgresql
+  encoding: utf-8
+  database: testheroes #lbr_jsonb_local3 #nine_dot_nine_sep19
+  host: localhost
+  username: saawan
+  password: saawan123
+  port: 5432
